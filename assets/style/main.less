@@ -1,0 +1,129 @@
+@import 'variables.less';
+@import 'mixins.less';
+
+// Fonts, coloring, minimal css reset
+* {
+  font-family: Source Sans Pro, 'Source Sans Pro', sans-serif;
+  color: @text;
+  padding: 0px;
+  margin: 0px;
+}
+html {
+  background-color: @khaki;
+}
+
+// Button styles
+button.btn {
+  .font-xs;
+  .bold;
+  background-color: @khaki;
+  border: 1px solid @ui;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  cursor: pointer;
+  outline: none;
+
+  &.btn-borderless {
+    border: 1px solid rgba(0,0,0,0);
+  }
+
+  &.btn-dark {
+    background-color: @text;
+    color: @khaki;
+    border: 1px solid @text;
+  }
+
+  &.btn-mid {
+    background-color: @text-light;
+    color: @khaki;
+  }
+
+  &.btn-ghost {
+    border: 1px solid rgba(0,0,0,0);
+    color: @text-light;
+  }
+
+  &.btn-fullwidth {
+    width: 100%;
+  }
+}
+
+// Routing transitions
+.page-enter-active, .page-leave-active {
+  transition: opacity .3s;
+}
+.page-enter, .page-leave-to {
+  opacity: 0;
+}
+
+// Margin, padding, position helpers
+.mr-12 { margin-right: 12px; }
+.stretch-1 {   flex: 1; }
+.stretch-2 {   flex: 2; }
+.sixh { max-width: 600px; }
+.hundred { width: 100%; }
+.twins {
+  display: flex;
+  justify-content: space-between;
+
+  .title-wrapper:first-child {
+    margin-right: 24px;
+  }
+}
+
+// Element framework overhit
+.bitmal-input {
+  input, textarea {
+    background-color: @khaki;
+    border-radius: 0 0 0 0;
+    border-color: @ui !important;
+    color: black;
+
+  }
+  textarea {
+    .font-s;
+  }
+  ::placeholder {
+    color: @text-light;
+  }
+}
+
+.el-input.is-disabled .el-input__inner {
+  background-color: @khaki !important;
+  color: @ui !important;
+}
+
+.bitmal-input-filter input {
+  .font-m;
+  .bold;
+}
+
+.bitmal-input-popper, .user-menu-container {
+  border: 1px solid black;
+  border-radius: 0 0 0 0;
+  padding: 20px;
+  background-color: @khaki;
+
+  .el-select-dropdown__item.hover,
+  .el-select-dropdown__item:hover,
+  .el-dropdown-menu__item.hover,
+  .el-dropdown-menu__item:hover {
+    background-color: transparent;
+    color: @text;
+  }
+
+  .popper__arrow,
+  .popper__arrow:before,
+  .popper__arrow:after {
+    display: none;
+  }
+}
+
+.el-input-number__increase,
+.el-input-number__decrease,
+.el-input-number__increase.is-disabled,
+.el-input-number__decrease.is-disabled {
+  background-color: @khaki;
+  border-color: @ui !important;
+}
