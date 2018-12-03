@@ -2,7 +2,7 @@
   <div class="transactions-tabs">
     <el-tabs type="card">
       <el-tab-pane label="Bitmal wallet">
-        <div class="transactions-inner">
+        <div class="transactions-inner wallet">
           <el-row
             :gutter="40"
             class="eighth">
@@ -48,6 +48,10 @@ export default {
 .transactions-inner {
   display: flex;
   justify-content: center;
+
+  &.wallet {
+    margin-top: 70px;
+  }
 
   .eighth {
     max-width: 840px;
