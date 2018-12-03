@@ -15,7 +15,7 @@
           slot="dropdown"
           class="user-menu-container">
           <el-dropdown-item @click.native="editAccount">Edit User Profile</el-dropdown-item>
-          <el-dropdown-item @click.native="viewHistory">View Transaction History</el-dropdown-item>
+          <el-dropdown-item @click.native="viewHistory">View wallet and transactions</el-dropdown-item>
           <el-dropdown-item @click.native="manageProjects">Manage Your Projects</el-dropdown-item>
           <el-dropdown-item @click.native="logMeOut">Sign Out</el-dropdown-item>
         </el-dropdown-menu>

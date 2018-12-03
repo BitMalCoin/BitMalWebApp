@@ -1,20 +1,14 @@
 <template>
-  <div>TODO: Transaction history</div>
+  <div class="transactions-tabs">
+    <el-tabs type="card">
+      <el-tab-pane label="Bitmal wallet">Bitmal wallet component...</el-tab-pane>
+      <el-tab-pane label="Bitmal transactions">Bitmal transactions component...</el-tab-pane>
+      <el-tab-pane label="USD transactions">USD transactions component...</el-tab-pane>
+    </el-tabs>
+  </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
-export default {
-  computed: {
-    ...mapGetters({
-      // exploreProjects: 'getOwnProjects'
-    })
-  }
-}
+// import { mapGetters } from 'vuex'
+export default {}
 </script>
-
-<style lang="less" scoped>
-@import '../../assets/style/main.less';
-
-</style>
