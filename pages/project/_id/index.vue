@@ -8,7 +8,9 @@
       v-if="project"
       class="project-breakdown">
 
-      <el-row :gutter="24">
+      <el-row
+        :gutter="24"
+        class="hundred">
         <el-col
           :span="leftSpan"
           class="left-col">
