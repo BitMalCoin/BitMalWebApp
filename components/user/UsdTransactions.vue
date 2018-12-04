@@ -1,14 +1,17 @@
 <template>
-  <div class="bitmal-transactions">
+  <div class="usd-transactions">
     <div
       v-for="transaction in transactions"
       :key="transaction.id"
-      class="bitmal-transaction">
+      class="usd-transaction">
       <div class="first-row">
-        <div :class="['iconholder', {minus: transaction.amount < 0}]">
-          <i class="el-icon-back"/>
+        <div class="iconholder">
+          <i class="el-icon-success"/>
         </div>
         <span class="nr">{{ Math.abs(transaction.amount) }}</span>
+        <span class="bmc">USD</span>
+        <i class="el-icon-caret-right caret" />
+        <span class="nr">{{ Math.abs(transaction.bmc) }}</span>
         <span class="bmc">BMC</span>
       </div>
       <div class="second-row">
@@ -30,29 +33,33 @@ export default {
       transactions: [
         {
           id: 'asdf1',
-          amount: 100,
-          info: 'by Csaba Makra for your project “Renovate school for Children””',
+          amount: 250,
+          bmc: 2,
+          info: 'some additional info about the transaction',
           hash: '0xsdfer84568945698ewrlertiertjlert45040564telfgl4564324aayxccc01233xgdfgdfgt',
           when: '2018/06/14'
         },
         {
           id: 'asdf2',
-          amount: -15,
-          info: 'by Csaba Makra for your project “Renovate school for Children””',
+          amount: 99,
+          bmc: 1,
+          info: 'some additional info about the transaction',
           hash: '0xsdfer84568945698ewrlertiertjlert45040564telfgl4564324aayxccc01233xgdfgdfgt',
           when: '2018/06/13'
         },
         {
           id: 'asdf3',
-          amount: 12,
-          info: 'by Csaba Makra for your project “Renovate school for Children””',
+          amount: 1200,
+          bmc: 12,
+          info: 'some additional info about the transaction',
           hash: '0xsdfer84568945698ewrlertiertjlert45040564telfgl4564324aayxccc01233xgdfgdfgt',
           when: '2018/06/12'
         },
         {
           id: 'asdf4',
-          amount: -8,
-          info: 'by Csaba Makra for your project “Renovate school for Children””',
+          amount: 89,
+          bmc: 8,
+          info: 'some additional info about the transaction',
           hash: '0xsdfer84568945698ewrlertiertjlert45040564telfgl4564324aayxccc01233xgdfgdfgt',
           when: '2018/06/11'
         }
@@ -67,13 +74,13 @@ export default {
 <style lang="less" scoped>
 @import '../../assets/style/main.less';
 
-.bitmal-transactions {
+.usd-transactions {
   display: flex;
   flex-direction: column;
   align-items: center;
   white-space: normal;
 
-  .bitmal-transaction {
+  .usd-transaction {
     max-width: 800px;
     min-height: 130px;
     display: flex;
@@ -93,18 +100,16 @@ export default {
         line-height: 22px;
         text-align: center;
         background-color: @green;
-        transform: rotate(90deg);
 
         i {
           color: white;
           .bold();
           font-size: 16px;
         }
+      }
 
-        &.minus {
-          background-color: @red;
-          transform: rotate(270deg);
-        }
+      i.caret {
+        transform: translate(3px, 1px);
       }
 
       .bmc {

@@ -18,11 +18,11 @@
       </el-tab-pane>
 
       <el-tab-pane label="Bitmal transactions">
-        <div class="bm-trans-tab">
+        <div class="trans-tab">
           <div class="upper">
             Your Bitmal transactions sorted by
             <el-select
-              v-model="value"
+              v-model="bitmalSort"
               class="bitmal-input bitmal-input-filter"
               popper-class="bitmal-input-popper">
               <el-option
@@ -39,7 +39,27 @@
         </div>
       </el-tab-pane>
 
-      <el-tab-pane label="USD transactions">USD transactions component...</el-tab-pane>
+      <el-tab-pane label="USD transactions">
+        <div class="trans-tab">
+          <div class="upper">
+            Your USD transactions sorted by
+            <el-select
+              v-model="usdSort"
+              class="bitmal-input bitmal-input-filter"
+              popper-class="bitmal-input-popper">
+              <el-option
+                v-for="option in options"
+                :key="option.value"
+                :label="option.value"
+                :value="option.value"/>
+            </el-select>
+          </div>
+
+          <div class="lower">
+            <usd-transactions />
+          </div>
+        </div>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -48,9 +68,10 @@
 import WalletBalance from '../../components/user/WalletBalance'
 import StripeBuy from '../../components/user/StripeBuy'
 import BitmalTransactions from '../../components/user/BitmalTransactions'
+import UsdTransactions from '../../components/user/UsdTransactions'
 
 export default {
-  components: { WalletBalance, StripeBuy, BitmalTransactions },
+  components: { WalletBalance, StripeBuy, BitmalTransactions, UsdTransactions },
 
   data () {
     return {
@@ -58,7 +79,8 @@ export default {
         { value: 'Newest' },
         { value: 'Oldest' }
       ],
-      value: {}
+      bitmalSort: {},
+      usdSort: {}
     }
   },
 
@@ -94,7 +116,7 @@ export default {
 
   }
 
-  .bm-trans-tab {
+  .trans-tab {
     .upper {
       display: flex;
       justify-content: center;
