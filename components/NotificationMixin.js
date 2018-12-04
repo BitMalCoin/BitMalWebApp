@@ -22,14 +22,21 @@ export default {
       })
     },
 
-    handleError: function (error) {
-      let title = `API error`
+    handleError: function (error, fallbackStr) {
+      let title = `API error on `
       const code = get(error, 'response.data.code', '') || get(error, 'code', '')
       if (code === 'ECONNABORTED') {
-        title = 'API timed out after 15 seconds'
+        title = 'API timed out after 15 seconds on'
       }
-      // const url = get(error, '')
-      const message = get(error, 'response.data.error.message', '')
+
+      let message = get(error, 'response.data.error.message', '')
+      const attributes = get(error, 'response.data.error.attributes')
+      if (attributes) {
+        for (let prop in attributes) {
+          message = message + ' ' + attributes[prop]
+        }
+      }
+      message = message || fallbackStr
 
       Notification.error({
         title: `${code ? code + ' - ' : ''}${title}`,

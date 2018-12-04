@@ -30,8 +30,8 @@ export default {
 
   async fetch ({ store, route }) {
     await Promise.all([
-      store.dispatch('types/loadType', 'sc_marketPlaceCategory'),
-      store.dispatch('types/loadType', 'sc_marketPlaceLocations')
+      store.dispatch('types/loadTypeServer', 'sc_marketPlaceCategory'),
+      store.dispatch('types/loadTypeServer', 'sc_marketPlaceLocations')
     ])
 
     if (route.query && route.query.location) {
@@ -54,15 +54,17 @@ export default {
     const loadTypesToProcError = didNotGotCategories || didNotGotLocations
 
     if (loadTypesToProcError) {
-      this.loadType('sc_marketPlaceCategory')
-      this.loadType('sc_marketPlaceLocations')
+      this.loadTypeClient('sc_marketPlaceCategory')
+      this.loadTypeClient('sc_marketPlaceLocations')
     }
+    this.womitErrors()
   },
 
   methods: {
     ...mapActions({
       showMore: 'explore/showMore',
-      loadType: 'types/loadType'
+      loadTypeClient: 'types/loadTypeClient',
+      womitErrors: 'errors/womitErrors'
     })
   }
 }
