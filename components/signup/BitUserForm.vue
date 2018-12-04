@@ -62,12 +62,13 @@
 <script>
 import TitleWrapper from '../common/TitleWrapper.vue'
 import BitmalFile from '../common/BitmalFile.vue'
-import { Message } from 'element-ui'
+import NotificationMixin from '../NotificationMixin.js'
 import { mapState, mapActions } from 'vuex'
 import get from 'lodash/get'
 
 export default {
   components: { TitleWrapper, BitmalFile },
+  mixins: [ NotificationMixin ],
 
   props: {
     editable: {
@@ -176,27 +177,10 @@ export default {
           this.register(body)
             .then(response => {
               this.$auth.fetchUser()
-              const title = 'Succcessful signup request'
-              const description = get(response, 'message', 'success')
-
-              Message.success({
-                dangerouslyUseHTMLString: true,
-                message: `<em>${title}</em><br>${description}`,
-                duration: 0,
-                showClose: true
-              })
+              this.handleSuccess('Succcessful signup request', get(response, 'message', 'success registering'))
             })
             .catch((error) => {
-              const title = `Server error (${get(error, 'response.data.code', '-')}) - ${get(error, 'response.data.error.message', '-')}`
-              const description = `${get(error, 'response.data.error.attributes.email', []).join(' & ')}
-                ${get(error, 'response.data.error.attributes.password', []).join(' & ')}`
-
-              Message.error({
-                dangerouslyUseHTMLString: true,
-                message: `<em>${title}</em><br>${description}`,
-                duration: 0,
-                showClose: true
-              })
+              this.handleError(error)
             })
         }
       })

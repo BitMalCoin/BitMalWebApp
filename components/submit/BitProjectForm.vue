@@ -151,13 +151,13 @@
 import TitleWrapper from '../common/TitleWrapper.vue'
 import BitmalFile from '../common/BitmalFile.vue'
 import { mapGetters, mapActions } from 'vuex'
-import { Message } from 'element-ui'
+import NotificationMixin from '../NotificationMixin.js'
 import get from 'lodash/get'
-import values from 'lodash/values'
 import { format as formatDate } from 'date-fns'
 
 export default {
   components: { TitleWrapper, BitmalFile },
+  mixins: [ NotificationMixin ],
 
   data () {
     return {
@@ -246,12 +246,7 @@ export default {
       }
       this.sendMilestone({ projectId, milestoneData })
         .catch(error => {
-          Message.error({
-            dangerouslyUseHTMLString: true,
-            message: `<em>${get(error, 'response.data.code')} - Server error occured</em><br>while adding milestone data`,
-            duration: 0,
-            showClose: true
-          })
+          this.handleError(error)
         })
     },
 
@@ -273,31 +268,14 @@ export default {
           }
           this.submitForm(formObj)
             .then(async response => {
-              const title = 'Succcessful project creation'
-              const description = get(response, 'data.message', 'success')
-              const projectId = get(response, 'data.id')
+              this.handleSuccess('Succcessful project creation', get(response, 'data.message', 'success'))
 
-              Message.success({
-                dangerouslyUseHTMLString: true,
-                message: `<em>${title}</em><br>${description}`,
-                duration: 0,
-                showClose: true
-              })
+              const projectId = get(response, 'data.id')
               await this.addMilestone(projectId)
               this.$router.push(`/project/${projectId}`)
             })
             .catch(error => {
-              const title = `Server error (${get(error, 'response.data.code', '-')}) - ${get(error, 'response.data.error.message', 'Server error occured while uploading the project form')}`
-              const description = values(get(error, 'response.data.error.attributes', {}))
-                .map(el => el.join(' & '))
-                .join(', ')
-
-              Message.error({
-                dangerouslyUseHTMLString: true,
-                message: `<em>${title}</em><br>${description}`,
-                duration: 0,
-                showClose: true
-              })
+              this.handleError(error, 'Server error occured while uploading the project form')
             })
         } // else frontend validation messages are bound
       })

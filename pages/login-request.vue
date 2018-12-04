@@ -35,12 +35,12 @@
 <script>
 import TitleWrapper from '../components/common/TitleWrapper'
 import { mapActions } from 'vuex'
-import get from 'lodash/get'
-import { Message } from 'element-ui'
+import NotificationMixin from '../components/NotificationMixin.js'
 
 export default {
   auth: false,
   components: { TitleWrapper },
+  mixins: [ NotificationMixin ],
 
   data () {
     var isNumberString = (rule, val, cb) => {
@@ -78,23 +78,11 @@ export default {
             mobile: +this.localForm.mobile
           })
             .then(response => {
-              Message.success({
-                message: 'Successful SMS request',
-                duration: 0,
-                showClose: true
-              })
+              this.handleSuccess('Succesful SMS request')
               this.$router.push('/login')
             })
             .catch(error => {
-              const title = `Server error (${get(error, 'response.data.code', '-')})`
-              const description = get(error, 'response.data.error.message', '-')
-
-              Message.error({
-                dangerouslyUseHTMLString: true,
-                message: `<em>${title}</em><br>${description}`,
-                duration: 0,
-                showClose: true
-              })
+              this.handleError(error)
             })
         }
       })

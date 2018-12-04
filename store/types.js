@@ -1,6 +1,6 @@
-import get from 'lodash/get'
 import { getTypes } from '../utils/urls'
-import { Message } from 'element-ui'
+import NotificationMixin from '../components/NotificationMixin'
+import get from 'lodash/get'
 
 export const state = () => ({
   sc_marketPlaceCategory: [],
@@ -23,8 +23,7 @@ export const getters = {
 }
 
 export const actions = {
-  async loadType ({ state, commit }, type) {
-    // TODO: handle this if way better!
+  async loadTypeServer ({ state, commit, dispatch }, type) {
     if (!state[type] || !state[type].length) {
       try {
         const { data } = await this.$axios.$get(`${getTypes}/${type}`)
@@ -33,15 +32,27 @@ export const actions = {
           types: data
         })
       } catch (error) {
-        const code = get(error, 'response.status')
-        const title = 'server error while fetching type: ' + type
-        const description = get(error, 'response.data.error.message', JSON.stringify(error.response.data))
-        Message.error({
-          dangerouslyUseHTMLString: true,
-          message: `<em>${code} - ${title}</em><br>${description}`,
-          duration: 0,
-          showClose: true
+        const code = get(error, 'response.data.code', '') || get(error, 'code', '')
+        const fallback = `server error while fetching type: ${type}`
+
+        dispatch('errors/storeErrorOnServer', { error: { code }, fallback }, { root: true })
+        return Promise.resolve()
+      }
+    } else {
+      return Promise.resolve()
+    }
+  },
+
+  async loadTypeClient ({ state, commit, dispatch }, type) {
+    if (!state[type] || !state[type].length) {
+      try {
+        const { data } = await this.$axios.$get(`${getTypes}/${type}`)
+        commit('STORE_TYPE', {
+          type,
+          types: data
         })
+      } catch (error) {
+        NotificationMixin.methods.handleError(error, 'server error while fetching type: ' + type)
         return Promise.resolve()
       }
     } else {
