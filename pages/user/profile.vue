@@ -13,20 +13,31 @@
 
 <script>
 import BitProfileForm from '../../components/user/BitProfileForm.vue'
+import { mapActions } from 'vuex'
 
 export default {
   auth: false,
 
   async fetch ({ store }) {
     await Promise.all([
-      store.dispatch('types/loadType', 'sc_marketPlaceLocations'),
-      store.dispatch('types/loadType', 'sc_marketPlaceEducation'),
-      store.dispatch('types/loadType', 'sc_marketPlaceProfileTag')
+      store.dispatch('types/loadTypeServer', 'sc_marketPlaceLocations'),
+      store.dispatch('types/loadTypeServer', 'sc_marketPlaceEducation'),
+      store.dispatch('types/loadTypeServer', 'sc_marketPlaceProfileTag')
     ])
   },
 
   components: {
     BitProfileForm
+  },
+
+  created () {
+    this.womitErrors()
+  },
+
+  methods: {
+    ...mapActions({
+      womitErrors: 'errors/womitErrors'
+    })
   }
 }
 </script>

@@ -11,15 +11,26 @@
 
 <script>
 import BitProjectForm from '../../components/submit/BitProjectForm.vue'
+import { mapActions } from 'vuex'
 
 export default {
   components: { BitProjectForm },
 
   async fetch ({ store, app }) {
     await Promise.all([
-      store.dispatch('types/loadType', 'sc_marketPlaceCategory'),
-      store.dispatch('types/loadType', 'sc_marketPlaceLocations')
+      store.dispatch('types/loadTypeServer', 'sc_marketPlaceCategory'),
+      store.dispatch('types/loadTypeServer', 'sc_marketPlaceLocations')
     ])
+  },
+
+  created () {
+    this.womitErrors()
+  },
+
+  methods: {
+    ...mapActions({
+      womitErrors: 'errors/womitErrors'
+    })
   }
 }
 </script>
