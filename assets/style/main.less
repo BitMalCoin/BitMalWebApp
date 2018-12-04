@@ -127,3 +127,32 @@ button.btn {
   background-color: @khaki;
   border-color: @ui !important;
 }
+
+// Tab overwrite for transactions
+.el-tabs--card {
+  .el-tabs__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-color: @ui;
+
+    .el-tabs__nav {
+      border-color: @ui;
+      border-radius: 0px;
+
+      .el-tabs__item {
+        border-color: @ui;
+        .font-m();
+
+        &.is-active {
+          .bold();
+          border-bottom-color: @khaki;
+          color: @text;
+        }
+        &:hover {
+          color: @text;
+        }
+      }
+    }
+  }
+}
