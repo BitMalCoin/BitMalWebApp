@@ -8,16 +8,16 @@
         <div :class="['iconholder', {minus: transaction.amount < 0}]">
           <i class="el-icon-back"/>
         </div>
-        {{ Math.abs(transaction.amount) }}
-        <span>BMC</span>
+        <span class="nr">{{ Math.abs(transaction.amount) }}</span>
+        <span class="bmc">BMC</span>
       </div>
       <div class="second-row">
         <div class="left">{{ transaction.info }}</div>
         <div class="right">{{ transaction.when }}</div>
       </div>
-      <div class="hash">
+      <p class="hash">
         Transaction hash: {{ transaction.hash }}
-      </div>
+      </p>
     </div>
   </div>
 </template>
@@ -71,13 +71,15 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  white-space: normal;
 
   .bitmal-transaction {
     max-width: 800px;
-    height: 130px;
+    min-height: 130px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 12px 0;
 
     .first-row {
       .bold();
@@ -90,7 +92,7 @@ export default {
         height: 24px;
         line-height: 24px;
         text-align: center;
-        background-color: #54BB5C;
+        background-color: @green;
         transform: rotate(90deg);
 
         i {
@@ -100,16 +102,47 @@ export default {
         }
 
         &.minus {
-          background-color: #F15B4A;
+          background-color: @red;
           transform: rotate(270deg);
         }
       }
 
-      span {
+      .bmc {
         color: @text-light;
         font-size: 15px;
+        margin-left: 2px;
+      }
+
+      .nr {
+        margin-left: 8px;
       }
     }
+
+    .second-row {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 22px;
+      margin: 6px 0;
+
+      .left {
+        display: block;
+        float: left;
+      }
+
+      .right {
+        display: block;
+        float: right;
+      }
+    }
+
+    .hash {
+      color: @text-light;
+      font-size: 12px;
+      line-height: 15px;
+      word-break: break-all;
+    }
+
+    border-bottom: 1px solid @ui;
   }
 }
 
