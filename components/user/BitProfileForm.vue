@@ -9,7 +9,7 @@
 
       <title-wrapper
         v-if="innerForm.profile_picture"
-        title="Profile picture">
+        :title="$t('profilePicture')">
         <el-form-item prop="profile_picture">
           <bitmal-file
             :outer-url="innerForm.profile_picture.url"
@@ -18,13 +18,13 @@
       </title-wrapper>
 
       <div class="twins">
-        <title-wrapper title="First name">
+        <title-wrapper :title="$t('firstName')">
           <el-input
             v-model="$auth.user.first_name"
             disabled
             class="bitmal-input"/>
         </title-wrapper>
-        <title-wrapper title="Last name">
+        <title-wrapper :title="$t('lastName')">
           <el-input
             v-model="$auth.user.family_name"
             disabled
@@ -32,43 +32,43 @@
         </title-wrapper>
       </div>
 
-      <title-wrapper title="Bitmal wallet address hash">
+      <title-wrapper :title="$t('bitmalWalletAddressHash')">
         <el-input
           v-model="wallet"
           disabled
           class="bitmal-input"/>
       </title-wrapper>
 
-      <title-wrapper title="Biography">
+      <title-wrapper :title="$t('biography')">
         <el-form-item prop="bio">
           <el-input
             :rows="2"
             v-model="innerForm.bio"
+            :placeholder="$t('plcBio')"
             class="bitmal-input"
             type="textarea"
-            autosize
-            placeholder="You can write your relevant biography here..." />
+            autosize />
         </el-form-item>
       </title-wrapper>
 
       <div class="twins">
-        <title-wrapper title="Birth date">
+        <title-wrapper :title="$t('birthDate')">
           <el-form-item prop="birth_date">
             <el-date-picker
               v-model="innerForm.birth_date"
+              :placeholder="$t('plcSelect')"
               class="bitmal-input hundred"
               popper-class="bitmal-input-popper"
               format="yyyy-MM-dd"
-              type="date"
-              placeholder="Select" />
+              type="date" />
           </el-form-item>
         </title-wrapper>
 
-        <title-wrapper title="Location">
+        <title-wrapper :title="$t('location')">
           <el-form-item prop="location">
             <el-select
               v-model="innerForm.location"
-              placeholder="Select location"
+              :placeholder="$t('plcSelectLoc')"
               class="bitmal-input hundred"
               popper-class="bitmal-input-popper">
               <el-option
@@ -82,7 +82,7 @@
       </div>
 
       <div class="twins">
-        <title-wrapper title="LinkedIn link">
+        <title-wrapper :title="$t('linkedInLink')">
           <el-form-item prop="linkedin_link">
             <el-input
               v-model="innerForm.linkedin_link"
@@ -90,7 +90,7 @@
           </el-form-item>
         </title-wrapper>
 
-        <title-wrapper title="Facebook link">
+        <title-wrapper :title="$t('facebookLink')">
           <el-form-item prop="facebook_link">
             <el-input
               v-model="innerForm.facebook_link"
@@ -99,11 +99,11 @@
         </title-wrapper>
       </div>
 
-      <title-wrapper title="Education level">
+      <title-wrapper :title="$t('educationLevel')">
         <el-form-item prop="education_level">
           <el-select
             v-model="innerForm.education_level"
-            placeholder="Select education"
+            :placeholder="$t('plcSelectEdu')"
             class="bitmal-input hundred"
             popper-class="bitmal-input-popper">
             <el-option
@@ -115,24 +115,52 @@
         </el-form-item>
       </title-wrapper>
 
-      <title-wrapper title="Education details">
+      <title-wrapper :title="$t('educationDetails')">
         <el-form-item prop="education">
           <el-input
             :rows="2"
             v-model="innerForm.education"
+            :placeholder="$t('plcEduDetails')"
             class="bitmal-input"
             type="textarea"
-            autosize
-            placeholder="You can write about your education here..." />
+            autosize />
         </el-form-item>
       </title-wrapper>
     </el-form>
 
     <button
       class="btn btn-dark"
-      @click="submit">save profile</button>
+      @click="submit">{{ $t('saveProfile') }}</button>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "trHash": "Transaction hash:",
+    "profilePicture": "Profile picture",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "bitmalWalletAddressHash": "Bitmal wallet address hash",
+    "biography": "Biography",
+    "birthDate": "Birth date",
+    "location": "Location",
+    "linkedInLink": "LinkedIn link",
+    "facebookLink": "Facebook link",
+    "educationLevel": "Education level",
+    "educationDetails": "Education details",
+    "plcBio": "You can write your relevant biography here...",
+    "plcSelect": "Select",
+    "plcSelectLoc": "Select location",
+    "plcSelectEdu": "Select education",
+    "plcEduDetails": "You can write about your education here...",
+    "coverImgRequired": "Cover image is required",
+    "fieldRequired": "This field is required",
+    "saveProfile": "save profile",
+    "apiSuccess": "Succesful profile update"
+  }
+}
+</i18n>
 
 <script>
 import TitleWrapper from '../common/TitleWrapper.vue'
@@ -152,28 +180,28 @@ export default {
       innerForm: {},
       rules: {
         profile_image: [
-          { required: true, message: 'Cover image is required', trigger: 'change' }
+          { required: true, message: this.$t('coverImgRequired'), trigger: 'change' }
         ],
         bio: [
-          { required: true, message: 'This field is required', trigger: 'blur' }
+          { required: true, message: this.$t('fieldRequired'), trigger: 'blur' }
         ],
         birth_date: [
-          { required: true, message: 'This field is required', trigger: 'blur' }
+          { required: true, message: this.$t('fieldRequired'), trigger: 'blur' }
         ],
         location: [
-          { required: true, message: 'This field is required', trigger: 'blur' }
+          { required: true, message: this.$t('fieldRequired'), trigger: 'blur' }
         ],
         linkedin_link: [
-          { required: true, message: 'This field is required', trigger: 'blur' }
+          { required: true, message: this.$t('fieldRequired'), trigger: 'blur' }
         ],
         facebook_link: [
-          { required: true, message: 'This field is required', trigger: 'blur' }
+          { required: true, message: this.$t('fieldRequired'), trigger: 'blur' }
         ],
         education_level: [
-          { required: true, message: 'This field is required', trigger: 'blur' }
+          { required: true, message: this.$t('fieldRequired'), trigger: 'blur' }
         ],
         education: [
-          { required: true, message: 'This field is required', trigger: 'blur' }
+          { required: true, message: this.$t('fieldRequired'), trigger: 'blur' }
         ]
       }
     }
@@ -229,7 +257,7 @@ export default {
           this.putProfile(serializedProfile)
             .then(async response => {
               await this.$auth.fetchUser()
-              this.handleSuccess('Succesful profile update', response.message)
+              this.handleSuccess(this.$t('apiSuccess'), response.message)
             })
             .catch(error => {
               this.handleError(error)

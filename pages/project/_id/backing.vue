@@ -5,7 +5,7 @@
       :project="project" />
 
     <div class="sixh">
-      <title-wrapper title="project bitmal wallet balance">
+      <title-wrapper :title="$t('projBalance')">
         <div class="nrs">
           <div class="bignr">{{ thousandSep(project.backing.pledged + amountToPass, ',') }}</div>
           <div class="goalnr">OF {{ project.backing.goal }} GOAL</div>
@@ -17,7 +17,7 @@
       </title-wrapper>
 
       <div class="twins">
-        <title-wrapper title="your bitmal contribution">
+        <title-wrapper :title="$t('yourContrib')">
           <el-input-number
             v-model="amount"
             :min="0"
@@ -27,7 +27,7 @@
             class="bitmal-input amount-input hundred" />
         </title-wrapper>
 
-        <title-wrapper title="your bitmal wallet balance">
+        <title-wrapper :title="$t('yourBalance')">
           <div class="bignr">{{ thousandSep($auth.user.balance || 500, ',') }}</div>
         </title-wrapper>
       </div>
@@ -35,10 +35,8 @@
       <div class="horizontal">
         <button
           class="btn btn-dark"
-          @click="submit">continue</button>
-        <div class="flex-1 action-description">
-          This will launch metamask gentrify heirloom meditation sriracha swag chambray skateboard gochujang portland blue bottle whatever...
-        </div>
+          @click="submit">{{ $t('continue') }}</button>
+        <div class="flex-1 action-description">{{ $t('info') }}</div>
       </div>
     </div>
 
@@ -47,6 +45,18 @@
     <bitmal-footer />
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "projBalance": "project bitmal wallet balance",
+    "yourContrib": "your bitmal contribution",
+    "yourBalance": "your bitmal wallet balance",
+    "continue": "continue",
+    "info": "This will launch metamask gentrify heirloom meditation sriracha swag chambray skateboard gochujang portland blue bottle whatever..."
+  }
+}
+</i18n>
 
 <script>
 import ProjectHeader from '../../../components/project/ProjectHeader'

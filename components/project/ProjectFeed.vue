@@ -1,6 +1,7 @@
 <template>
   <title-wrapper
-    title="activity feed"
+    v-show="feed.length > 0"
+    :title="$t('title')"
     class="proj-feed">
 
     <div
@@ -19,9 +20,18 @@
     <button
       v-if="feed.length > 5"
       class="btn btn-fullwidth btn-ghost"
-      @click="toggleShowAll">{{ showAll ? 'HIDE' : 'SEE' }} ALL ACTIVITY</button>
+      @click="toggleShowAll">{{ showAll ? 'HIDE' : 'SEE' }} {{ $t('allActivity') }}</button>
   </title-wrapper>
 </template>
+
+<i18n>
+{
+  "en": {
+    "title": "activity feed",
+    "allActivity": "ALL ACTIVITY"
+  }
+}
+</i18n>
 
 <script>
 import TitleWrapper from '../common/TitleWrapper'

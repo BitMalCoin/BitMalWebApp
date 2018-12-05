@@ -5,29 +5,43 @@
     <div class="task-details">
       <div class="task-detail-row">
         <img
+          :alt="$t('calendarIcon')"
           class="left-icon"
-          src="/date.png"
-          alt="calendar icon">
-        <div class="task-detail-text">Expected delivery by {{ formatDate(task.expected) }}</div>
+          src="/date.png">
+        <div class="task-detail-text">{{ $t('expected') }} {{ formatDate(task.expected) }}</div>
       </div>
       <div class="task-detail-row">
         <img
+          :alt="$t('volunteersIcon')"
           class="left-icon"
-          src="/users.png"
-          alt="volunteers icon">
-        <div class="task-detail-text">{{ task.volunteersNeeded }} volunteers needed</div>
+          src="/users.png">
+        <div class="task-detail-text">{{ task.volunteersNeeded }} {{ $t('volunteersNeeded') }}</div>
       </div>
       <div class="task-detail-row">
         <img
+          :alt="$t('bitmalIcon')"
           class="left-icon"
-          src="/billet.png"
-          alt="bitmal icon">
-        <div class="task-detail-text">{{ task.reward }} Bitmals reward</div>
+          src="/billet.png">
+        <div class="task-detail-text">{{ task.reward }} {{ $t('bitmalReward') }}</div>
       </div>
     </div>
-    <button class="btn btn-dark btn-fullwidth">apply to this task</button>
+    <button class="btn btn-dark btn-fullwidth">{{ $t('apply') }}</button>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "calendarIcon": "calendar icon",
+    "expected": "Expected delivery by",
+    "volunteersIcon": "volunteers icon",
+    "volunteersNeeded": "volunteers needed",
+    "bitmalIcon": "bitmal icon",
+    "bitmalReward": "Bitmals reward",
+    "apply": "apply to this task"
+  }
+}
+</i18n>
 
 <script>
 import formatDateFns from 'date-fns/format'

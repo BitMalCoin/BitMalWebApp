@@ -17,16 +17,26 @@
         <img
           v-if="project.owner.profile_picture && project.owner.profile_picture.url"
           :src="project.owner.profile_picture.url"
-          onerror="this.style.display='none'"
-          alt="owner img">
+          :alt="$t('ownerImg')"
+          onerror="this.style.display='none'">
       </div>
       <div class="owner-and-cause">
-        <div class="owner">by {{ project.owner.first_name }} {{ project.owner.family_name }}</div>
-        <div class="cause">in {{ project.category.name }}</div>
+        <div class="owner">{{ $t('by') }} {{ project.owner.first_name }} {{ project.owner.family_name }}</div>
+        <div class="cause">{{ $t('in') }} {{ project.category.name }}</div>
       </div>
     </el-col>
   </el-row>
 </template>
+
+<i18n>
+{
+  "en": {
+    "qwnerImg": "owners profile picture",
+    "by": "by",
+    "in": "in"
+  }
+}
+</i18n>
 
 <script>
 export default {

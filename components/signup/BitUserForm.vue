@@ -12,7 +12,7 @@
         class="hundred">
 
         <el-col :span="calcSpan">
-          <title-wrapper title="first name">
+          <title-wrapper :title="$t('firstName')">
             <el-form-item prop="firstName">
               <el-input
                 v-model="firstName"
@@ -22,7 +22,7 @@
         </el-col>
 
         <el-col :span="calcSpan">
-          <title-wrapper title="last name">
+          <title-wrapper :title="$t('lastName')">
             <el-form-item prop="lastName">
               <el-input
                 v-model="lastName"
@@ -32,7 +32,7 @@
         </el-col>
 
         <el-col :span="calcSpan">
-          <title-wrapper title="email">
+          <title-wrapper :title="$t('email')">
             <el-form-item prop="email">
               <el-input
                 v-model="email"
@@ -42,7 +42,7 @@
         </el-col>
 
         <el-col :span="calcSpan">
-          <title-wrapper title="mobile">
+          <title-wrapper :title="$t('mobile')">
             <el-form-item prop="mobile">
               <el-input
                 v-model="mobile"
@@ -55,9 +55,22 @@
 
     <button
       class="btn btn-dark"
-      @click="submit">{{ editable ? 'save profile' : 'sign up' }}</button>
+      @click="submit">{{ editable ? this.$t('saveProfile') : this.$t('signup') }}</button>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "firstName": "first name",
+    "lastName": "last name",
+    "email": "email",
+    "mobile": "mobile",
+    "saveProfile": "save profile",
+    "signup": "sign up"
+  }
+}
+</i18n>
 
 <script>
 import TitleWrapper from '../common/TitleWrapper.vue'

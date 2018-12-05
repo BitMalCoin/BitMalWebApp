@@ -6,12 +6,20 @@
       <div>
         <div class="Loader">
           <div />
-          <span>Loading</span>
+          <span>{{ $t('loading') }}</span>
         </div>
       </div>
     </div>
   </transition>
 </template>
+
+<i18n>
+{
+  "en": {
+    "loading": "Loading"
+  }
+}
+</i18n>
 
 <script>
 import Vue from 'vue'

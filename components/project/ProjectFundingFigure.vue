@@ -21,11 +21,19 @@
         :style="figLeft(goal, sum)"
         class="goal-sign">
         <i class="el-icon-caret-top el-icon--right" />
-        <div>GOAL</div>
+        <div>{{ $t('goal') }}</div>
       </div>
     </div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "goal": "GOAL"
+  }
+}
+</i18n>
 
 <script>
 export default {

@@ -19,11 +19,19 @@
         <div class="right">{{ transaction.when }}</div>
       </div>
       <p class="hash">
-        Transaction hash: {{ transaction.hash }}
+        {{ $t('trHash') }} {{ transaction.hash }}
       </p>
     </div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "trHash": "Transaction hash:"
+  }
+}
+</i18n>
 
 <script>
 export default {

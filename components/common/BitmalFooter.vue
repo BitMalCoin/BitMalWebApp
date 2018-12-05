@@ -1,6 +1,14 @@
 <template>
-  <footer>BitMal is still under development, for more information please contact <a href="mailto:info@bitmal.org">info@bitmal.org</a></footer>
+  <footer>{{ $t('footer') }} <a href="mailto:info@bitmal.org">info@bitmal.org</a></footer>
 </template>
+
+<i18n>
+{
+  "en": {
+    "footer": "BitMal is still under development, for more information please contact"
+  }
+}
+</i18n>
 
 <script>
 export default {}

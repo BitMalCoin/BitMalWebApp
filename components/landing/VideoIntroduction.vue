@@ -11,19 +11,29 @@
       </no-ssr>
     </div>
     <div class="stretch-2">
-      <div class="intro-text">BitMal is a social market place where every one can contribute to the community. Backed by an innovative system where your efforts will be transformed into a social positive change.</div>
+      <div class="intro-text">{{ $t('introduction') }}</div>
       <div class="buttons">
         <nuxt-link
-          to="/submit"
+          :to="localePath('submit')"
           tag="button"
-          class="btn btn-dark mr-12">submit a project</nuxt-link>
+          class="btn btn-dark mr-12">{{ $t('submitBtn') }}</nuxt-link>
         <form action="mailto:info@bitmail.org">
-          <button class="btn btn-dark">contact us</button>
+          <button class="btn btn-dark">{{ $t('contactBtn') }}</button>
         </form>
       </div>
     </div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "introduction": "BitMal is a social market place where every one can contribute to the community. Backed by an innovative system where your efforts will be transformed into a social positive change.",
+    "submitBtn": "submit a project",
+    "contactBtn": "contact us"
+  }
+}
+</i18n>
 
 <script>
 export default {}

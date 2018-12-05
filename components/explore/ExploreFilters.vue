@@ -5,9 +5,9 @@
     <el-col :span="calcSpan">
       <el-input
         v-model="q"
+        :placeholder="$t('searchPlaceholder')"
         autofocus
-        class="bitmal-input searchbox"
-        placeholder="Search...">
+        class="bitmal-input searchbox">
         <i
           slot="prefix"
           class="el-input__icon el-icon-search"/>
@@ -36,6 +36,14 @@
     </el-col>
   </el-row>
 </template>
+
+<i18n>
+{
+  "en": {
+    "searchPlaceholder": "Search..."
+  }
+}
+</i18n>
 
 <script>
 import BitFilter from '../common/BitFilter.vue'

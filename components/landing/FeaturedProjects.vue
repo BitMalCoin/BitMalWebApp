@@ -1,7 +1,7 @@
 <template>
   <div class="featured-holder">
     <div class="top-text">
-      <div class="bold">Featured projects</div>
+      <div class="bold">{{ $t('featuredProjects') }}</div>
     </div>
     <el-row :gutter="24">
       <el-col :span="countSpan">
@@ -22,6 +22,14 @@
     </el-row>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "featuredProjects": "featured projects"
+  }
+}
+</i18n>
 
 <script>
 import ProjectComponent from '../common/ProjectComponent.vue'

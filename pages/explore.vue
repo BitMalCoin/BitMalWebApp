@@ -6,12 +6,21 @@
       <button
         v-if="!showingAll"
         class="btn loadmore-btn"
-        @click="showMore">load more</button>
-      <p v-if="!exploreProjects.length">No projects to show</p>
+        @click="showMore">{{ $t('loadMore') }}</button>
+      <p v-if="!exploreProjects.length">{{ $t('noMore') }}</p>
     </div>
     <bitmal-footer />
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "loadMore": "load more",
+    "noMore": "No projects to show"
+  }
+}
+</i18n>
 
 <script>
 import ExploreFilters from '../components/explore/ExploreFilters.vue'
