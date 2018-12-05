@@ -7,7 +7,7 @@
         style="object-fit: cover">
       <button
         :class="['btn btn-dark', { 'bordered': !!localImgBase64 }]"
-        @click="$refs.fileInput.click()">upload picture</button>
+        @click="$refs.fileInput.click()">{{ $t('upload') }}</button>
       <input
         ref="fileInput"
         accept="image/*"
@@ -16,11 +16,18 @@
         @change="fileChanged">
     </div>
 
-    <div class="photo-text">
-      Image requirements blah blah Living a fully ethical life academic emerging strategize academic peaceful citizen-centered green space ecosystem.
-    </div>
+    <div class="photo-text">{{ $t('sideText') }}</div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "upload": "upload picture",
+    "sideText": "Image requirements blah blah Living a fully ethical life academic emerging strategize academic peaceful citizen-centered green space ecosystem."
+  }
+}
+</i18n>
 
 <script>
 import { get as exists } from 'lodash'

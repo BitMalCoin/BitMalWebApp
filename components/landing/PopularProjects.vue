@@ -1,7 +1,7 @@
 <template>
   <div class="popular-holder">
     <div class="top-text">
-      <div class="bold">Popular projects</div>
+      <div class="bold">{{ $t('popularProjects') }}</div>
     </div>
     <div class="projects">
       <div
@@ -13,6 +13,14 @@
     </div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "popularProjects": "Popular projects"
+  }
+}
+</i18n>
 
 <script>
 import ProjectComponent from '../common/ProjectComponent.vue'

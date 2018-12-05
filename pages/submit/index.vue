@@ -1,13 +1,22 @@
 <template>
   <div class="submit-page">
     <div class="subhead sixh">
-      <div class="tit">Thanks for making the world a better place.</div>
-      <div class="subtit">Living a fully ethical life academic emerging strategize academic peaceful citizen-centered green space ecosystem.</div>
+      <div class="tit">{{ $t('tit') }}</div>
+      <div class="subtit">{{ $t('subtit') }}</div>
     </div>
     <div class="hr" />
     <bit-project-form class="sixh" />
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "tit": "Thanks for making the world a better place.",
+    "subtit": "Living a fully ethical life academic emerging strategize academic peaceful citizen-centered green space ecosystem."
+  }
+}
+</i18n>
 
 <script>
 import BitProjectForm from '../../components/submit/BitProjectForm.vue'

@@ -2,7 +2,7 @@
   <div class="transactions-tabs">
     <el-tabs type="card">
 
-      <el-tab-pane label="Bitmal wallet">
+      <el-tab-pane :label="$t('bitmalWallet')">
         <div class="transactions-inner wallet">
           <el-row
             :gutter="40"
@@ -17,10 +17,10 @@
         </div>
       </el-tab-pane>
 
-      <el-tab-pane label="Bitmal transactions">
+      <el-tab-pane :label="$t('bitmalTransactions')">
         <div class="trans-tab">
           <div class="upper">
-            Your Bitmal transactions sorted by
+            {{ $t('yourBitmalTransactionsSortedBy') }}
             <el-select
               v-model="bitmalSort"
               class="bitmal-input bitmal-input-filter"
@@ -39,10 +39,10 @@
         </div>
       </el-tab-pane>
 
-      <el-tab-pane label="USD transactions">
+      <el-tab-pane :label="$t('USDTransactions')">
         <div class="trans-tab">
           <div class="upper">
-            Your USD transactions sorted by
+            {{ $t('yourUSDTransactionsSortedBy') }}
             <el-select
               v-model="usdSort"
               class="bitmal-input bitmal-input-filter"
@@ -63,6 +63,18 @@
     </el-tabs>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "bitmalWallet": "Bitmal wallet",
+    "bitmalTransactions": "Bitmal transactions",
+    "yourBitmalTransactionsSortedBy": "Your Bitmal transactions sorted by",
+    "USDTransactions": "USD transactions",
+    "yourUSDTransactionsSortedBy": "Your USD transactions sorted by"
+  }
+}
+</i18n>
 
 <script>
 import WalletBalance from '../../components/user/WalletBalance'

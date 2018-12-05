@@ -18,15 +18,15 @@
             <img
               v-if="project.primary_media && project.primary_media.url"
               :src="project.primary_media.url"
-              class="proj-cover"
-              alt="project cover image">
+              :alt="$t('projectCoverImage')"
+              class="proj-cover">
           </div>
 
           <p class="description">{{ project.description }}</p>
 
           <title-wrapper
             v-if="project.milestones && project.milestones.data.length"
-            title="milestones">
+            :title="$t('milestones')">
             <div
               v-for="(milestone, ind) in project.milestones.data"
               :key="milestone.id"
@@ -39,7 +39,7 @@
 
           <title-wrapper
             v-if="project.tags && project.tags.length"
-            :title="'tags'">
+            :title="$t('tags')">
             <div
               v-for="(tag, ind) in project.tags"
               :key="'tag-' + ind"
@@ -50,7 +50,7 @@
           <title-wrapper
             v-if="project.comments && project.comments.data"
             v-show="$mq !== 'xs'"
-            :title="`comments (${project.comments && project.comments.data && project.comments.data.length})`">
+            :title="`${$t('comments')} (${project.comments && project.comments.data && project.comments.data.length})`">
             <bitmal-comments :project="project" />
           </title-wrapper>
 
@@ -64,7 +64,7 @@
 
           <title-wrapper
             v-if="project.tasks && project.tasks.data"
-            title="volunteering tasks"
+            :title="$t('volunteeringTasks')"
             class="small-top-margin-title">
             <project-task
               v-for="task in project.tasks.data"
@@ -72,14 +72,12 @@
               :task="task" />
           </title-wrapper>
 
-          <div>? Social Share ?</div>
-
           <project-feed :feed="project.feed || []" />
 
           <title-wrapper
             v-if="project.comments && project.comments.data"
             v-show="$mq === 'xs'"
-            :title="`comments (${project.comments && project.comments.data && project.comments.data.length})`">
+            :title="`${$t('comments')} (${project.comments && project.comments.data && project.comments.data.length})`">
             <bitmal-comments :project="project" />
           </title-wrapper>
         </el-col>
@@ -89,6 +87,18 @@
     <bitmal-footer/>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "projectCoverImage": "project cover image",
+    "comments": "comments",
+    "volunteeringTasks": "volunteering tasks",
+    "tags": "tags",
+    "milestones": "milestones"
+  }
+}
+</i18n>
 
 <script>
 import ProjectHeader from '../../../components/project/ProjectHeader.vue'

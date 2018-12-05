@@ -5,7 +5,7 @@
       class="hundred"
       justify="center">
       <el-col :span="calcSpan">
-        <div :class="['text', {'text-right': $mq !== 'xs'}]">Your projects sorted by</div>
+        <div :class="['text', {'text-right': $mq !== 'xs'}]">{{ $t('projSortedBy') }}</div>
       </el-col>
       <el-col :span="calcSpan">
         <bit-filter-obj
@@ -17,6 +17,14 @@
     </el-row>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "projSortedBy": "Your projects sorted by"
+  }
+}
+</i18n>
 
 <script>
 import BitFilterObj from '../common/BitFilterObj.vue'

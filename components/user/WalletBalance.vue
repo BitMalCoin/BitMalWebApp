@@ -1,11 +1,20 @@
 <template>
   <div class="wallet-balance">
-    <div class="tit">MY BITMAL WALLET BALANCE</div>
+    <div class="tit">{{ $t('balance') }}</div>
     <div class="nr">{{ mockBalance }}</div>
-    <div class="tit">MY BITMAL ADDRESS (HASH)</div>
+    <div class="tit">{{ $t('hash') }}</div>
     <div class="hash">{{ mockHash }}</div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "balance": "MY BITMAL WALLET BALANCE",
+    "hash": "MY BITMAL ADDRESS (HASH)"
+  }
+}
+</i18n>
 
 <script>
 

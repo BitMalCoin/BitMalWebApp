@@ -18,6 +18,7 @@ Other than the dependencies included through YARN, the following installations a
 - [date-fns](https://date-fns.org/) for managing date and time, tree-shaken
 - [lodash](https://lodash.com/docs) as utility library, tree-shaken
 - [nuxt-mq](https://github.com/vanhoofmaarten/nuxt-mq#readme) for reactive responsive breakpoints, and classes
+- [nuxt-i18n](https://nuxt-community.github.io/nuxt-i18n/) for handling future translation functionality
 - [vue-scroll-class](https://github.com/jasepellerin/vue-scroll-class#readme) for reactive classes based on scroll position
 - [eslint](https://eslint.org/) for linting
   - javascript, based on [standard JS](https://standardjs.com/)
@@ -50,6 +51,12 @@ The 3 commands above yielded the following results at the time of writing this:
 - [licenses disclaimer](licenses_disclaimer.txt)
 > !! Please note, that this is an initial state. It can, and most definitely will change. For up-to-date information, you have to re-run the commands above.
 
+## Translations
+You can find the strings either:
+- inside .vue components `<i18n>` tags, if interpolated straight into a `<template>`, or
+- inside [/i18n/i18n.json](/i18n/i18n.json), it's contents are used through javascript
+
+If you want to change translations, or add new locales, you can look at the [documentation](https://nuxt-community.github.io/nuxt-i18n/).
 
 ## Build Setup
 

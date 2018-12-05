@@ -7,18 +7,18 @@
       <div class="c-writer-img-holder">
         <img
           :src="$auth.user.profile_picture.url"
-          class="c-writer-img"
-          alt="user profile">
+          :alt="$t('userProfPic')"
+          class="c-writer-img">
       </div>
       <div class="c-text-holder">
         <textarea
           ref="newCommentInput"
           v-model="newComment"
-          class="c-textarea"
-          placeholder="Add a comment here..." />
+          :placeholder="$t('addComment')"
+          class="c-textarea" />
         <button
           class="btn btn-mid post-btn"
-          @click="postComment">post comment</button>
+          @click="postComment">{{ $t('postComment') }}</button>
       </div>
     </div>
 
@@ -30,8 +30,8 @@
         <img
           v-if="comment.owner.profile_picture && comment.owner.profile_picture.url"
           :src="comment.owner.profile_picture.url"
-          class="c-writer-img"
-          alt="commenter profile">
+          :alt="$t('commenterProfPic')"
+          class="c-writer-img">
       </div>
       <div class="c-text-holder">
         <div
@@ -42,6 +42,17 @@
     </div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "userProfPic": "user profile picture",
+    "addComment": "Add a comment here...",
+    "postComment": "post comment",
+    "commenterProfPic": "commenter profile"
+  }
+}
+</i18n>
 
 <script>
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'

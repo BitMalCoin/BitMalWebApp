@@ -1,17 +1,29 @@
 <template>
   <div class="stripe-buy">
-    <div class="tit">BUY BITMAL FOR USD</div>
+    <div class="tit">{{ $t('buyFor') }}</div>
     <div class="buy-strip">
       <el-input
         v-model="amount"
-        class="bitmal-input"
-        placeholder="Type amount"/>
-      <button class="btn btn-dark">Buy now!</button>
+        :placeholder="$t('type')"
+        class="bitmal-input"/>
+      <button class="btn btn-dark">{{ $t('buyNow') }}</button>
     </div>
-    <div class="text">Conversion: 1 BMC = {{ rate }} USD</div>
-    <div class="info">Info: this will launch a popup of stripe, which then bla, Bob Lablaw's law blog bla bla</div>
+    <div class="text">{{ $t('conversion') }} 1 BMC = {{ rate }} USD</div>
+    <div class="info">{{ $t('info') }}</div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "buyFor": "BUY BITMAL FOR USD",
+    "type": "Type amount",
+    "buyNow": "Buy now!",
+    "conversion": "Conversion:",
+    "info": "Info: this will launch a popup of stripe, which then bla, Bob Lablaw's law blog bla bla"
+  }
+}
+</i18n>
 
 <script>
 

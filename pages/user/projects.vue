@@ -3,11 +3,19 @@
     <my-project-sort />
     <explore-grid :projects="myProjects" />
     <div class="midder">
-      <p v-if="!myProjects.length">No projects to show</p>
+      <p v-if="!myProjects.length">{{ $t('empty') }}</p>
     </div>
     <bitmal-footer />
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "empty": "No projects to show"
+  }
+}
+</i18n>
 
 <script>
 import MyProjectSort from '../../components/user/MyProjectSort.vue'

@@ -6,12 +6,20 @@
       <div>
         <div class="Loader">
           <div />
-          <span>Loading</span>
+          <span>{{ $t('loading') }}</span>
         </div>
       </div>
     </div>
   </transition>
 </template>
+
+<i18n>
+{
+  "en": {
+    "loading": "Loading"
+  }
+}
+</i18n>
 
 <script>
 import Vue from 'vue'
@@ -116,7 +124,6 @@ export default {
       left: 50%;
       transform: translate(-50%, -50%);
       padding: 20px;
-      // background-color: rgba(255,255,255,.9);
       background-color: @khaki;
       border-radius: 5px;
       box-shadow: 0 4px 12px 0 rgba(0,0,0,.12);

@@ -2,9 +2,9 @@
   <nav v-scroll-class:scrolled="1">
     <div class="nav-mid">
       <nuxt-link
-        to="/explore"
+        :to="localePath('explore')"
         tag="button"
-        class="btn btn-borderless">explore</nuxt-link>
+        class="btn btn-borderless">{{ $t('explore') }}</nuxt-link>
 
       <img
         src="/logo.png"
@@ -14,17 +14,37 @@
       <bitmal-user v-if="$auth.loggedIn" />
       <div v-if="!$auth.loggedIn">
         <nuxt-link
-          to="/login-request"
+          :to="localePath('login-request')"
           tag="button"
-          class="btn mr-12">sign in</nuxt-link>
+          class="btn mr-12">{{ $t('login') }}</nuxt-link>
         <nuxt-link
-          to="/signup"
+          :to="localePath('signup')"
           tag="button"
-          class="btn btn-dark">sign up</nuxt-link>
+          class="btn btn-dark">{{ $t('signup') }}</nuxt-link>
       </div>
     </div>
   </nav>
 </template>
+
+<i18n>
+{
+  "en": {
+    "explore": "explore",
+    "login": "sign in",
+    "signup": "sign up"
+  }
+}
+</i18n>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+
+</style>
 
 <script>
 import BitmalUser from '../common/BitmalUser'

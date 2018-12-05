@@ -1,8 +1,8 @@
 <template>
   <div class="signup-page">
     <div class="subhead sixh">
-      <div class="tit">Welcome to bitmal</div>
-      <div class="subtit">Living a fully ethical life academic emerging strategize academic peaceful citizen-centered green space ecosystem.</div>
+      <div class="tit">{{ $t('tit') }}</div>
+      <div class="subtit">{{ $t('subtit') }}</div>
     </div>
     <div class="hr" />
     <bit-user-form
@@ -10,6 +10,15 @@
       class="sixh"/>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "tit": "Welcome to bitmal.",
+    "subtit": "Living a fully ethical life academic emerging strategize academic peaceful citizen-centered green space ecosystem."
+  }
+}
+</i18n>
 
 <script>
 import BitUserForm from '../components/signup/BitUserForm.vue'

@@ -1,8 +1,8 @@
 <template>
   <div class="bit-login">
     <div class="subhead sixh">
-      <div class="tit">Welcome to bitmal.</div>
-      <div class="subtit">Living a fully ethical life academic emerging strategize academic peaceful citizen-centered green space ecosystem.</div>
+      <div class="tit">{{ $t('tit') }}</div>
+      <div class="subtit">{{ $t('subtit') }}</div>
     </div>
     <div class="hr" />
 
@@ -13,7 +13,7 @@
       class="login-inputs"
       @submit.native.prevent>
 
-      <title-wrapper title="your registered mobile number">
+      <title-wrapper :title="$t('yourNumber')">
         <el-form-item prop="mobile">
           <el-input
             v-model="localForm.mobile"
@@ -27,10 +27,24 @@
     <div class="btn-holder">
       <button
         class="btn btn-dark"
-        @click="submit">request sms</button>
+        @click="submit">{{ $t('requestSms') }}</button>
     </div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "tit": "Welcome to bitmal.",
+    "subtit": "Living a fully ethical life academic emerging strategize academic peaceful citizen-centered green space ecosystem.",
+    "yourNumber": "your registered mobile number",
+    "requestSms": "request sms",
+    "shouldBeNumber": "Phone number should be a number",
+    "fieldRequired": "This field is required",
+    "smsSuccess": "Succesful SMS request"
+  }
+}
+</i18n>
 
 <script>
 import TitleWrapper from '../components/common/TitleWrapper'
@@ -48,7 +62,7 @@ export default {
       if (val == +val && typeof +val === 'number') {
         cb()
       } else {
-        cb(new Error('Phone number should be a number'))
+        cb(new Error(this.$t('shouldBeNumber')))
       }
     }
 
@@ -59,7 +73,7 @@ export default {
 
       rules: {
         mobile: [
-          { required: true, message: 'This field is required', trigger: 'blur' },
+          { required: true, message: this.$t('fieldRequired'), trigger: 'blur' },
           { validator: isNumberString, trigger: 'blur' }
         ]
       }
@@ -78,7 +92,7 @@ export default {
             mobile: +this.localForm.mobile
           })
             .then(response => {
-              this.handleSuccess('Succesful SMS request')
+              this.handleSuccess(this.$t('smsSuccess'))
               this.$router.push('/login')
             })
             .catch(error => {

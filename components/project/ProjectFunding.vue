@@ -1,11 +1,11 @@
 <template>
   <title-wrapper
-    title="PLEDGED BITMALS"
+    :title="$t('pledged')"
     class="marginless">
     <div class="proj-funding">
       <div class="nrs">
         <div class="bignr">{{ project.pledged || 100 }}</div>
-        <div class="goalnr">OF {{ project.goal || 300 }} GOAL</div>
+        <div class="goalnr">OF {{ project.goal || 300 }} {{ $t('goal') }}</div>
       </div>
       <div class="figure">
         <div
@@ -13,21 +13,33 @@
           class="figure-filler" />
       </div>
       <div class="two-nrs">
-        <title-wrapper title="DAYS TO GO">
+        <title-wrapper :title="$t('toGo')">
           <div class="bignr">{{ daysUntil }}</div>
         </title-wrapper>
-        <title-wrapper title="TOTAL BACKERS">
+        <title-wrapper :title="$t('backers')">
           <div class="bignr">{{ project.backers || 2 }}</div>
         </title-wrapper>
       </div>
 
       <nuxt-link
-        :to="`/project/${project.id}/backing`"
+        :to="localePath({path: `/project/${project.id}/backing`})"
         tag="button"
-        class="btn btn-dark btn-fullwidth">BACK THIS PROJECT</nuxt-link>
+        class="btn btn-dark btn-fullwidth">{{ $t('backThis') }}</nuxt-link>
     </div>
   </title-wrapper>
 </template>
+
+<i18n>
+{
+  "en": {
+    "pledged": "PLEDGED BITMALS",
+    "goal": "GOAL",
+    "toGo": "DAYS TO GO",
+    "backers": "TOTAL BACKERS",
+    "backThis": "BACK THIS PROJECT"
+  }
+}
+</i18n>
 
 <script>
 import TitleWrapper from '../common/TitleWrapper.vue'

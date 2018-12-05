@@ -43,7 +43,7 @@ export const actions = {
     }
   },
 
-  async loadTypeClient ({ state, commit, dispatch }, type) {
+  async loadTypeClient ({ state, commit }, type) {
     if (!state[type] || !state[type].length) {
       try {
         const { data } = await this.$axios.$get(`${getTypes}/${type}`)

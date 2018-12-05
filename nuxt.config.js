@@ -1,4 +1,5 @@
 import { baseURL, loginAuthentication as login, myProfile } from './utils/urls'
+import i18nLibrary from './i18n/i18n.json'
 const pkg = require('./package')
 
 module.exports = {
@@ -19,7 +20,6 @@ module.exports = {
   },
 
   // Customize the progress-bar color
-  // loading: { color: '#fff' },
   loading: '~/components/common/BitmalLoader.vue',
 
   // Global CSS
@@ -51,6 +51,26 @@ module.exports = {
           md: 992,
           lg: 1200,
           xl: Infinity
+        }
+      }
+    ],
+    // Docs: https://nuxt-community.github.io/nuxt-i18n/
+    [
+      'nuxt-i18n',
+      {
+        locales: [
+          {
+            code: 'en',
+            iso: 'en-US'
+          }
+        ],
+        defaultLocale: 'en',
+        strategy: 'prefix_except_default',
+        vueI18nLoader: true,
+        vueI18n: {
+          locale: 'en',
+          fallbackLocale: 'en',
+          messages: i18nLibrary
         }
       }
     ]

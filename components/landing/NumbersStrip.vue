@@ -1,23 +1,34 @@
 <template>
   <el-row class="strip">
     <el-col :span="countSpan">
-      <div class="title">active projects</div>
+      <div class="title">{{ $t('activeProjects') }}</div>
       <div class="number">{{ thousandSep(general.activeProjects) }}</div>
     </el-col>
     <el-col :span="countSpan">
-      <div class="title">total invested bitmals</div>
+      <div class="title">{{ $t('totalInvested') }}</div>
       <div class="number">{{ thousandSep(general.totalInvestedBitmals) }}</div>
     </el-col>
     <el-col :span="countSpan">
-      <div class="title">total backers</div>
+      <div class="title">{{ $t('totalBackers') }}</div>
       <div class="number">{{ thousandSep(general.totalBackers) }}</div>
     </el-col>
     <el-col :span="countSpan">
-      <div class="title">funded projects</div>
+      <div class="title">{{ $t('fundedProjects') }}</div>
       <div class="number">{{ thousandSep(general.fundedProjects) }}</div>
     </el-col>
   </el-row>
 </template>
+
+<i18n>
+{
+  "en": {
+    "activeProjects": "active projects",
+    "totalInvested": "total invested bitmals",
+    "totalBackers": "total backers",
+    "fundedProjects": "funded projects"
+  }
+}
+</i18n>
 
 <script>
 import { mapState } from 'vuex'

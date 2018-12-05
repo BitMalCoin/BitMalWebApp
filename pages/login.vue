@@ -1,8 +1,8 @@
 <template>
   <div class="bit-login">
     <div class="subhead sixh">
-      <div class="tit">Welcome to bitmal.</div>
-      <div class="subtit">Living a fully ethical life academic emerging strategize academic peaceful citizen-centered green space ecosystem.</div>
+      <div class="tit">{{ $t('tit') }}</div>
+      <div class="subtit">{{ $t('subtit') }}</div>
     </div>
     <div class="hr" />
 
@@ -16,7 +16,7 @@
         :gutter="20"
         class="hundred">
         <el-col :span="calcSpan">
-          <title-wrapper title="mobile">
+          <title-wrapper :title="$t('mobile')">
             <el-form-item
               prop="mobile"
               disabled>
@@ -27,7 +27,7 @@
           </title-wrapper>
         </el-col>
         <el-col :span="calcSpan">
-          <title-wrapper title="passcode">
+          <title-wrapper :title="$t('passcode')">
             <el-form-item prop="passcode">
               <el-input
                 v-model="localForm.passcode"
@@ -43,10 +43,25 @@
     <div class="btn-holder">
       <button
         class="btn btn-dark"
-        @click="submit">sign in</button>
+        @click="submit">{{ $t('signIn') }}</button>
     </div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "tit": "Welcome to bitmal.",
+    "subtit": "Living a fully ethical life academic emerging strategize academic peaceful citizen-centered green space ecosystem.",
+    "mobile": "mobile",
+    "passcode": "passcode",
+    "signIn": "sign in",
+    "fieldRequired": "This field is required",
+    "succesTit": "Succesful login",
+    "succesDetails": "the server has verified your passcode"
+  }
+}
+</i18n>
 
 <script>
 import TitleWrapper from '../components/common/TitleWrapper'
@@ -68,10 +83,10 @@ export default {
 
       rules: {
         mobile: [
-          { required: true, message: 'This field is required', trigger: 'blur' }
+          { required: true, message: this.$t('fieldRequired'), trigger: 'blur' }
         ],
         passcode: [
-          { required: true, message: 'This field is required', trigger: 'blur' }
+          { required: true, message: this.$t('fieldRequired'), trigger: 'blur' }
         ]
       }
     }
@@ -101,7 +116,7 @@ export default {
             data: { ...this.localForm }
           })
             .then(() => {
-              this.handleSuccess('Succesful login', 'the server has verified your passcode')
+              this.handleSuccess(this.$t('succesTit'), this.$t('succesDetails'))
               this.$router.push('/')
             })
             .catch(error => {

@@ -14,10 +14,10 @@
         <el-dropdown-menu
           slot="dropdown"
           class="user-menu-container">
-          <el-dropdown-item @click.native="editAccount">Edit User Profile</el-dropdown-item>
-          <el-dropdown-item @click.native="viewHistory">View wallet and transactions</el-dropdown-item>
-          <el-dropdown-item @click.native="manageProjects">Manage Your Projects</el-dropdown-item>
-          <el-dropdown-item @click.native="logMeOut">Sign Out</el-dropdown-item>
+          <el-dropdown-item @click.native="editProfile">{{ $t('editProfile') }}</el-dropdown-item>
+          <el-dropdown-item @click.native="viewHistory">{{ $t('viewHistory') }}</el-dropdown-item>
+          <el-dropdown-item @click.native="manageProjects">{{ $t('manageProjects') }}</el-dropdown-item>
+          <el-dropdown-item @click.native="logMeOut">{{ $t('logMeOut') }}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -31,22 +31,38 @@
         onerror="this.style.display='none'">
       <el-dropdown trigger="click">
         <span class="el-dropdown-link user-name">
-          Mockuser <i class="el-icon-caret-bottom el-icon--right" />
+          {{ $t('unknownUser') }} <i class="el-icon-caret-bottom el-icon--right" />
         </span>
         <el-dropdown-menu
           slot="dropdown"
           class="user-menu-container">
-          <el-dropdown-item @click.native="editAccount">Fill profile</el-dropdown-item>
-          <el-dropdown-item @click.native="logMeOut">Sign Out</el-dropdown-item>
+          <el-dropdown-item @click.native="editProfile">{{ $t('fillProfile') }}</el-dropdown-item>
+          <el-dropdown-item @click.native="logMeOut">{{ $t('logMeOut') }}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
 
     <div v-if="!$auth.user">
-      No user
+      $t('noUser')
     </div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "editProfile": "Edit user profile",
+    "viewHistory": "View wallet and transactions",
+    "manageProjects": "Manage Your Projects",
+    "logMeOut": "Sign Out",
+    "fillProfile": "Fill profile",
+    "noUser": "No user",
+    "unknownUser": "User without profile",
+    "logoutSuccess": "Succesful logout",
+    "logoutError": "Error during user logout"
+  }
+}
+</i18n>
 
 <script>
 import NotificationMixin from '../NotificationMixin.js'
@@ -56,7 +72,7 @@ export default {
   mixins: [ NotificationMixin ],
 
   methods: {
-    editAccount () {
+    editProfile () {
       this.$router.push('/user/profile')
     },
 
@@ -71,11 +87,11 @@ export default {
     async logMeOut () {
       this.$auth.logout()
         .then(() => {
-          console.log('Succesful logout')
+          this.handleSuccess(this.$t('logoutSuccess'))
           this.$router.push('/')
         })
         .catch(error => {
-          console.warn('Logout error', error)
+          this.handleError(error, this.$t('logoutError'))
         })
     }
   }

@@ -7,15 +7,24 @@
       <img
         v-if="project.primary_media && project.primary_media.url"
         :src="project.primary_media.url"
-        class="project-img"
-        alt="No project image">
+        :alt="$t('noImg')"
+        class="project-img">
     </div>
     <div class="cause">{{ project.category.name }}</div>
     <div class="name">{{ project.title }}</div>
     <div class="introduction">{{ project.brief || '-' }}</div>
-    <div class="info">{{ project.info || 'wallet N.A.' }}</div>
+    <div class="info">{{ project.info || $t('walletNA') }}</div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "noImg": "No project image",
+    "walletNA": "wallet N.A."
+  }
+}
+</i18n>
 
 <script>
 export default {

@@ -1,0 +1,17 @@
+{
+  "en": {
+    "errors": {
+      "timeout": "API timed out after 15 seconds on",
+      "imgError": "Error loading image from URL:"
+    },
+    "sorts": {
+      "default": "Default sort",
+      "oldest": "Oldest",
+      "newest": "Newest",
+      "trending": "Trending",
+      "ending_soon": "Ending soon",
+      "most_funded": "Most funded",
+      "most_supported": "Most supported"
+    }
+  }
+}
