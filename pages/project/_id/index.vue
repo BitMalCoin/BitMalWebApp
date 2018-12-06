@@ -64,7 +64,7 @@
             v-if="isUsersProject"
             :to="localePath({path: `/project/${project.id}/edit`})"
             tag="button"
-            class="btn btn-dark btn-fullwidth btn-mb-12">{{ $t('editProject') }}</nuxt-link>
+            class="btn btn-dark btn-fullwidth btn-mb">{{ $t('editProject') }}</nuxt-link>
 
           <project-funding :project="project"/>
 
@@ -229,8 +229,8 @@ export default {
   }
 
   .right-col {
-    .btn-mb-12 {
-      margin-bottom: 12px;
+    .btn-mb {
+      margin-bottom: 36px;
     }
     .small-top-margin-title {
       margin-top: 8px;
