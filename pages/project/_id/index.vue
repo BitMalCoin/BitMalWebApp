@@ -69,7 +69,7 @@
           <project-funding :project="project"/>
 
           <title-wrapper
-            v-if="project.tasks && project.tasks.data"
+            v-if="project.tasks && project.tasks.data && project.tasks.data.length"
             :title="$t('volunteeringTasks')"
             class="small-top-margin-title">
             <project-task
