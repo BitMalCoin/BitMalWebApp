@@ -60,6 +60,10 @@
           :span="rightSpan"
           class="right-col">
 
+          <button
+            v-if="isUsersProject"
+            class="btn btn-dark btn-fullwidth btn-mb-12">{{ $t('editProject') }}</button>
+
           <project-funding :project="project"/>
 
           <title-wrapper
@@ -91,6 +95,7 @@
 <i18n>
 {
   "en": {
+    "editProject": "edit project",
     "projectCoverImage": "project cover image",
     "comments": "comments",
     "volunteeringTasks": "volunteering tasks",
@@ -111,6 +116,7 @@ import ProjectFeed from '../../../components/project/ProjectFeed.vue'
 
 import BitmalFooter from '../../../components/common/BitmalFooter.vue'
 import { mapGetters } from 'vuex'
+import get from 'lodash/get'
 
 export default {
   auth: false,
@@ -129,6 +135,12 @@ export default {
   },
 
   computed: {
+    isUsersProject () {
+      const projectOwnerId = get(this, 'project.owner.id', 'a')
+      const userId = get(this, '$auth.user.id', 'b')
+      return projectOwnerId === userId
+    },
+
     ...mapGetters({
       project: 'projectDetail/getProject'
     }),
@@ -213,6 +225,9 @@ export default {
   }
 
   .right-col {
+    .btn-mb-12 {
+      margin-bottom: 12px;
+    }
     .small-top-margin-title {
       margin-top: 8px;
     }
