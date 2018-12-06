@@ -32,7 +32,7 @@
               :key="milestone.id"
               class="milestone">
               <div class="m-title">{{ ind + 1 }}. {{ milestone.title }}</div>
-              <div class="m-funding">FUNDING GOAL {{ milestone.btc_value }} BITMALS</div>
+              <div class="m-funding">{{ $t('fundingGoal') }} {{ milestone.btc_value }} {{ $t('bitmals') }}</div>
               <div class="m-detail">{{ milestone.description }}</div>
             </div>
           </title-wrapper>
@@ -100,7 +100,9 @@
     "comments": "comments",
     "volunteeringTasks": "volunteering tasks",
     "tags": "tags",
-    "milestones": "milestones"
+    "milestones": "milestones",
+    "fundingGoal": "FUNDING GOAL",
+    "bitmals": "BITMALS"
   }
 }
 </i18n>
