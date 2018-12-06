@@ -19,7 +19,7 @@
 </i18n>
 
 <script>
-import BitProjectForm from '../../components/submit/BitProjectForm.vue'
+import BitProjectForm from '../components/submit/BitProjectForm.vue'
 import { mapActions } from 'vuex'
 
 export default {
@@ -45,7 +45,7 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../assets/style/main.less';
+@import '../assets/style/main.less';
 
 .submit-page {
   display: flex;

@@ -9,7 +9,9 @@
 
       <title-wrapper :title="$t('projectCoverImage')">
         <el-form-item prop="img">
-          <bitmal-file @fileChanged="fileChanged" />
+          <bitmal-file
+            :outer-url="img.url"
+            @fileChanged="fileChanged" />
         </el-form-item>
       </title-wrapper>
 
@@ -17,6 +19,7 @@
         <el-form-item prop="title">
           <el-input
             v-model="title"
+            :placeholder="$t('placehldrTitle')"
             class="bitmal-input"/>
         </el-form-item>
       </title-wrapper>
@@ -95,6 +98,7 @@
 
       <title-wrapper
         :title="$t('milestoneTitle')"
+        :addition="$t('min5')"
         big-top-margin>
         <el-form-item prop="milestone_title">
           <el-input
@@ -128,7 +132,9 @@
         </title-wrapper>
       </div>
 
-      <title-wrapper :title="$t('milestone')">
+      <title-wrapper
+        :title="$t('milestoneDetails')"
+        :addition="$t('min10')">
         <el-form-item prop="milestone_description">
           <el-input
             :rows="3"
@@ -143,7 +149,7 @@
 
     <button
       class="btn btn-dark"
-      @click="submit">{{ $t('submit') }}</button>
+      @click="clickActionHandler">{{ edit ? $t('save') : $t('submit') }}</button>
   </div>
 </template>
 
@@ -160,7 +166,8 @@
     "milestoneTitle": "milestone title",
     "milestoneFundingGoal": "milestone funding goal",
     "milestoneTargetDate": "milestone target date",
-    "milestone": "milestone",
+    "milestoneDetails": "milestone details",
+    "placehldrTitle": "Enter project title",
     "placehldrPleaseSelect": "Please select",
     "placehldrSelect": "Select",
     "placehldrBrief": "What's the key value proposition of your project?",
@@ -168,11 +175,17 @@
     "placehldrMilestoneTitle": "A title best describing your milestone",
     "placehldrMilestoneDetails": "Here you can further detail your milestone.",
     "max140": "max. 140 characters",
+    "min5": "min. 5 characters",
+    "min10": "min. 10 characters",
     "max140Invalid": "Introduction shouldn't be longer than 140 characters",
+    "min5Invalid": "Should be at least 5 characters long",
+    "min10Invalid": "Should be at least 10 characters long",
     "submit": "submit",
+    "save": "save changes",
     "coverImgRequired": "Cover image is required",
     "fieldRequired": "This field is required",
-    "apiSuccess": "Succcessful project creation",
+    "apiPostSuccess": "Succcessful project creation",
+    "apiPutSuccess": "Succcessful project creation",
     "apiError": "Server error occured while uploading the project form"
   }
 }
@@ -189,6 +202,15 @@ import { format as formatDate } from 'date-fns'
 export default {
   components: { TitleWrapper, BitmalFile },
   mixins: [ NotificationMixin ],
+
+  props: {
+    project: {
+      type: Object,
+      default: () => ({
+        empty: true
+      })
+    }
+  },
 
   data () {
     return {
@@ -229,7 +251,8 @@ export default {
           { required: true, message: this.$t('fieldRequired'), trigger: 'blur' }
         ],
         milestone_title: [
-          { required: true, message: this.$t('fieldRequired'), trigger: 'blur' }
+          { required: true, message: this.$t('fieldRequired'), trigger: 'blur' },
+          { min: 5, message: this.$t('min5Invalid') }
         ],
         milestone_btc_value: [
           { type: 'number', required: true, min: 0.0000001, message: this.$t('fieldRequired'), trigger: 'blur' }
@@ -238,7 +261,8 @@ export default {
           { required: true, message: this.$t('fieldRequired'), trigger: 'blur' }
         ],
         milestone_description: [
-          { required: true, message: this.$t('fieldRequired'), trigger: 'blur' }
+          { required: true, message: this.$t('fieldRequired'), trigger: 'blur' },
+          { min: 10, message: this.$t('min10Invalid') }
         ]
       }
     }
@@ -246,11 +270,39 @@ export default {
 
   computed: {
     ...mapGetters({
-      getTypes: 'types/getRawTypes'
-    })
+      getTypes: 'types/getRawTypes',
+      getTypeIdFromName: 'types/getTypeIdFromName'
+    }),
+
+    edit () {
+      return !this.project.empty
+    }
+  },
+
+  created () {
+    if (this.edit) {
+      this.img = get(this, 'project.primary_media')
+      this.title = get(this, 'project.title')
+      this.category = get(this, 'project.category.name')
+      this.location = get(this, 'project.location.name')
+      this.brief = get(this, 'project.brief')
+      this.description = get(this, 'project.description')
+      this.launch_date = get(this, 'project.launch_date')
+      this.milestone_title = get(this, 'project.milestones.data[0].title')
+      this.milestone_btc_value = get(this, 'project.milestones.data[0].btc_value')
+      this.milestone_target_date = get(this, 'project.milestones.data[0].target_date')
+      this.milestone_description = get(this, 'project.milestones.data[0].description')
+    }
   },
 
   methods: {
+    ...mapActions({
+      submitAction: 'form/submit',
+      patchAction: 'form/patch',
+      saveImg: 'form/saveImg',
+      sendMilestone: 'form/sendMilestone'
+    }),
+
     fileChanged (file) {
       if (file) {
         this.img = file
@@ -260,11 +312,84 @@ export default {
       })
     },
 
-    ...mapActions({
-      submitForm: 'form/submit',
-      saveImg: 'form/saveImg',
-      sendMilestone: 'form/sendMilestone'
-    }),
+    clickActionHandler () {
+      this.$refs.projectForm.validate(async valid => {
+        if (valid) {
+          if (this.edit) {
+            this.patch()
+          } else {
+            this.submit()
+          }
+        } // else client validation kicks in
+      })
+    },
+
+    async submitProject () {
+      const imgResponse = await this.saveImg(this.img)
+
+      const formObj = {
+        primary_media: get(imgResponse, 'data.data.id', null),
+        title: this.title,
+        category: this.category,
+        location: this.location,
+        brief: this.brief,
+        description: this.description,
+        launch_date: formatDate(this.launch_date, 'YYYY-MM-DD HH:mm:ss'),
+
+        approval_notes: ''
+      }
+      this.submitAction(formObj)
+        .then(async response => {
+          this.handleSuccess(this.$t('apiPostSuccess'), get(response, 'data.message', 'success'))
+
+          const projectId = get(response, 'data.id')
+          await this.addMilestone(projectId)
+          this.$router.push(`/project/${projectId}`)
+        })
+        .catch(error => {
+          this.handleError(error, this.$t('apiError'))
+        })
+    },
+
+    async patchProject () {
+      // Upload image if its raw
+      let imgResponse, imgResponseId
+      if (this.img && !this.img.url) {
+        imgResponse = await this.saveImg(this.img)
+          .catch(error => {
+            this.handleError(error)
+          })
+        imgResponseId = get(imgResponse, 'data.data.id', null)
+      }
+
+      // Serialising
+      const formObj = {
+        id: this.project.id,
+        title: this.title,
+        category: this.getTypeIdFromName('sc_marketPlaceCategory', this.category),
+        location: this.getTypeIdFromName('sc_marketPlaceLocations', this.location),
+        brief: this.brief,
+        description: this.description,
+        launch_date: formatDate(this.launch_date, 'YYYY-MM-DD HH:mm:ss'),
+
+        approval_notes: get(this, 'project.approval_notes', '')
+      }
+      if (imgResponseId) {
+        formObj.primary_media = imgResponseId
+      }
+
+      this.patchAction(formObj)
+        .then(async response => {
+          this.handleSuccess(this.$t('apiPutSuccess'), get(response, 'data.message', 'success'))
+
+          const projectId = get(response, 'data.id')
+          await this.addMilestone(projectId)
+          this.$router.push(`/project/${projectId}`)
+        })
+        .catch(error => {
+          this.handleError(error, this.$t('apiError'))
+        })
+    },
 
     addMilestone (projectId) {
       const milestoneData = {
@@ -277,37 +402,6 @@ export default {
         .catch(error => {
           this.handleError(error)
         })
-    },
-
-    submit () {
-      this.$refs.projectForm.validate(async valid => {
-        if (valid) {
-          const imgResponse = await this.saveImg(this.img)
-
-          const formObj = {
-            primary_media: get(imgResponse, 'data.data.id', null),
-            title: this.title,
-            category: this.category,
-            location: this.location,
-            brief: this.brief,
-            description: this.description,
-            launch_date: formatDate(this.launch_date, 'YYYY-MM-DD HH:mm:ss'),
-
-            approval_notes: ''
-          }
-          this.submitForm(formObj)
-            .then(async response => {
-              this.handleSuccess(this.$t('apiSuccess'), get(response, 'data.message', 'success'))
-
-              const projectId = get(response, 'data.id')
-              await this.addMilestone(projectId)
-              this.$router.push(`/project/${projectId}`)
-            })
-            .catch(error => {
-              this.handleError(error, this.$t('apiError'))
-            })
-        } // else frontend validation messages are bound
-      })
     }
   }
 }

@@ -32,7 +32,7 @@
               :key="milestone.id"
               class="milestone">
               <div class="m-title">{{ ind + 1 }}. {{ milestone.title }}</div>
-              <div class="m-funding">FUNDING GOAL {{ milestone.btc_value }} BITMALS</div>
+              <div class="m-funding">{{ $t('fundingGoal') }} {{ milestone.btc_value }} {{ $t('bitmals') }}</div>
               <div class="m-detail">{{ milestone.description }}</div>
             </div>
           </title-wrapper>
@@ -60,10 +60,16 @@
           :span="rightSpan"
           class="right-col">
 
+          <nuxt-link
+            v-if="isUsersProject"
+            :to="localePath({path: `/project/${project.id}/edit`})"
+            tag="button"
+            class="btn btn-dark btn-fullwidth btn-mb">{{ $t('editProject') }}</nuxt-link>
+
           <project-funding :project="project"/>
 
           <title-wrapper
-            v-if="project.tasks && project.tasks.data"
+            v-if="project.tasks && project.tasks.data && project.tasks.data.length"
             :title="$t('volunteeringTasks')"
             class="small-top-margin-title">
             <project-task
@@ -91,11 +97,14 @@
 <i18n>
 {
   "en": {
+    "editProject": "edit project",
     "projectCoverImage": "project cover image",
     "comments": "comments",
     "volunteeringTasks": "volunteering tasks",
     "tags": "tags",
-    "milestones": "milestones"
+    "milestones": "milestones",
+    "fundingGoal": "FUNDING GOAL",
+    "bitmals": "BITMALS"
   }
 }
 </i18n>
@@ -111,6 +120,7 @@ import ProjectFeed from '../../../components/project/ProjectFeed.vue'
 
 import BitmalFooter from '../../../components/common/BitmalFooter.vue'
 import { mapGetters } from 'vuex'
+import get from 'lodash/get'
 
 export default {
   auth: false,
@@ -129,6 +139,12 @@ export default {
   },
 
   computed: {
+    isUsersProject () {
+      const projectOwnerId = get(this, 'project.owner.id', 'a')
+      const userId = get(this, '$auth.user.id', 'b')
+      return projectOwnerId === userId
+    },
+
     ...mapGetters({
       project: 'projectDetail/getProject'
     }),
@@ -213,6 +229,9 @@ export default {
   }
 
   .right-col {
+    .btn-mb {
+      margin-bottom: 36px;
+    }
     .small-top-margin-title {
       margin-top: 8px;
     }

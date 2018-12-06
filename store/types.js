@@ -19,7 +19,8 @@ export const state = () => ({
 export const getters = {
   getTypes: state => type => state[type],
   getRawTypes: state => type => state[type].filter(el => el.id !== ''),
-  getLocationFromId: state => searchId => state.sc_marketPlaceLocations.find(el => el.id === searchId)
+  getLocationFromId: state => searchId => state.sc_marketPlaceLocations.find(el => el.id === searchId),
+  getTypeIdFromName: state => (type, name) => state[type].find(el => el.name === name).id
 }
 
 export const actions = {

@@ -31,7 +31,7 @@
 <i18n>
 {
   "en": {
-    "qwnerImg": "owners profile picture",
+    "ownerImg": "owners profile picture",
     "by": "by",
     "in": "in"
   }
