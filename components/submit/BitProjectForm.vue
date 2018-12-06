@@ -9,7 +9,9 @@
 
       <title-wrapper :title="$t('projectCoverImage')">
         <el-form-item prop="img">
-          <bitmal-file @fileChanged="fileChanged" />
+          <bitmal-file
+            :outer-url="img.url"
+            @fileChanged="fileChanged" />
         </el-form-item>
       </title-wrapper>
 
@@ -17,6 +19,7 @@
         <el-form-item prop="title">
           <el-input
             v-model="title"
+            :placeholder="$t('placehldrTitle')"
             class="bitmal-input"/>
         </el-form-item>
       </title-wrapper>
@@ -161,6 +164,7 @@
     "milestoneFundingGoal": "milestone funding goal",
     "milestoneTargetDate": "milestone target date",
     "milestone": "milestone",
+    "placehldrTitle": "Enter project title",
     "placehldrPleaseSelect": "Please select",
     "placehldrSelect": "Select",
     "placehldrBrief": "What's the key value proposition of your project?",
@@ -189,6 +193,15 @@ import { format as formatDate } from 'date-fns'
 export default {
   components: { TitleWrapper, BitmalFile },
   mixins: [ NotificationMixin ],
+
+  props: {
+    project: {
+      type: Object,
+      default: () => ({
+        empty: true
+      })
+    }
+  },
 
   data () {
     return {
@@ -248,6 +261,22 @@ export default {
     ...mapGetters({
       getTypes: 'types/getRawTypes'
     })
+  },
+
+  created () {
+    if (!this.project.empty) {
+      this.img = get(this, 'project.primary_media')
+      this.title = get(this, 'project.title')
+      this.category = get(this, 'project.category.name')
+      this.location = get(this, 'project.location.name')
+      this.brief = get(this, 'project.brief')
+      this.description = get(this, 'project.description')
+      this.launch_date = get(this, 'project.launch_date')
+      this.milestone_title = get(this, 'project.milestones.data[0].title')
+      this.milestone_btc_value = get(this, 'project.milestones.data[0].btc_value')
+      this.milestone_target_date = get(this, 'project.milestones.data[0].target_date')
+      this.milestone_description = get(this, 'project.milestones.data[0].description')
+    }
   },
 
   methods: {

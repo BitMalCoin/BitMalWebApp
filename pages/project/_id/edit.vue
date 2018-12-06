@@ -5,7 +5,10 @@
       <div class="subtit">{{ $t('subtit') }}</div>
     </div>
     <div class="hr" />
-    <bit-project-form class="sixh" />
+    <bit-project-form
+      :project="project"
+      class="sixh"
+    />
   </div>
 </template>
 
