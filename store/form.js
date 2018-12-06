@@ -9,6 +9,10 @@ export const actions = {
     return this.$axios.$post(browse, formObj)
   },
 
+  patch ({ commit }, formObj) {
+    return this.$axios.$patch(`${browse}/${formObj.id}`, formObj)
+  },
+
   saveImg ({ commit }, fileObj) {
     const bodyFormData = new FormData()
     bodyFormData.append('object', fileObj)
