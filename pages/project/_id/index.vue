@@ -60,9 +60,11 @@
           :span="rightSpan"
           class="right-col">
 
-          <button
+          <nuxt-link
             v-if="isUsersProject"
-            class="btn btn-dark btn-fullwidth btn-mb-12">{{ $t('editProject') }}</button>
+            :to="localePath({path: `/project/${project.id}/edit`})"
+            tag="button"
+            class="btn btn-dark btn-fullwidth btn-mb-12">{{ $t('editProject') }}</nuxt-link>
 
           <project-funding :project="project"/>
 
